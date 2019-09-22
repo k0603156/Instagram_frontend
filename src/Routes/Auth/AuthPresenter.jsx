@@ -1,4 +1,5 @@
 import React from "react";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
@@ -61,27 +62,42 @@ export default ({
   <Wrapper>
     <Form>
       {action === ACTION_LOGIN && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder={"Email"} {...email} type="email" />
-          {/* <Input placeholder={"Password"} {...password} type="password" /> */}
-          <Button text={"Log in"} />
-        </form>
+        <>
+          <Helmet>
+            <title>Log In | Prismagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder={"Email"} {...email} type="email" />
+            {/* <Input placeholder={"Password"} {...password} type="password" /> */}
+            <Button text={"Log in"} />
+          </form>
+        </>
       )}
       {action === ACTION_SIGNUP && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder={"First name"} {...firstName} />
-          <Input placeholder={"Last name"} {...lastName} />
-          <Input placeholder={"Email"} {...email} type="email" />
-          <Input placeholder={"Username"} {...userName} />
-          {/* <Input placeholder={"Password"} {...password} type="password" /> */}
-          <Button text={"Sign up"} />
-        </form>
+        <>
+          <Helmet>
+            <title>Sign Up | Prismagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder={"First name"} {...firstName} />
+            <Input placeholder={"Last name"} {...lastName} />
+            <Input placeholder={"Email"} {...email} type="email" />
+            <Input placeholder={"Username"} {...userName} />
+            {/* <Input placeholder={"Password"} {...password} type="password" /> */}
+            <Button text={"Sign up"} />
+          </form>
+        </>
       )}
       {action === ACTION_CONFIRM && (
-        <form onSubmit={onSubmit}>
-          <Input placeholder="Paste your secret" required {...secret} />
-          <Button text={"Confirm"} />
-        </form>
+        <>
+          <Helmet>
+            <title>Confirm Secret | Prismagram</title>
+          </Helmet>
+          <form onSubmit={onSubmit}>
+            <Input placeholder="Paste your secret" required {...secret} />
+            <Button text={"Confirm"} />
+          </form>
+        </>
       )}
     </Form>
     {action !== ACTION_CONFIRM && (
