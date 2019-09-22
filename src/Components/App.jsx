@@ -19,10 +19,12 @@ export default () => {
   const {
     data: { isLoggedIn }
   } = useQuery(QUERY);
+
   return (
     <ThemeProvider theme={Theme}>
       <Wrapper>
         <GlobalStyles />
+        <div>{"ss:" + isLoggedIn}</div>
         <AppRouter isLoggedIn={isLoggedIn} />
         <ToastContainer position={toast.POSITION.BOTTOM_LEFT} />
         <Footer />

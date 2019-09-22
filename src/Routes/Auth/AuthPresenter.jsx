@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../../Components/Input";
 import Button from "../../Components/Button";
+import { ACTION_CONFIRM, ACTION_SIGNUP, ACTION_LOGIN } from "./AuthAction";
 
 const Wrapper = styled.div`
   min-height: 80vh;
@@ -48,45 +49,55 @@ const Form = styled(Box)`
 
 export default ({
   action,
-  username,
+  userName,
   // password,
   firstName,
   lastName,
   email,
   setAction,
-  onSubmit
+  onSubmit,
+  secret
 }) => (
   <Wrapper>
     <Form>
-      {action === "logIn" ? (
+      {action === ACTION_LOGIN && (
         <form onSubmit={onSubmit}>
           <Input placeholder={"Email"} {...email} type="email" />
           {/* <Input placeholder={"Password"} {...password} type="password" /> */}
           <Button text={"Log in"} />
         </form>
-      ) : (
+      )}
+      {action === ACTION_SIGNUP && (
         <form onSubmit={onSubmit}>
           <Input placeholder={"First name"} {...firstName} />
           <Input placeholder={"Last name"} {...lastName} />
           <Input placeholder={"Email"} {...email} type="email" />
-          <Input placeholder={"Username"} {...username} />
+          <Input placeholder={"Username"} {...userName} />
           {/* <Input placeholder={"Password"} {...password} type="password" /> */}
           <Button text={"Sign up"} />
         </form>
       )}
-    </Form>
-    <StateChanger>
-      {action === "logIn" ? (
-        <>
-          Don 't have an account?
-          <Link onClick={() => setAction("signUp")}> Sign up </Link>
-        </>
-      ) : (
-        <>
-          Have an account ?
-          <Link onClick={() => setAction("logIn")}> Log in </Link>
-        </>
+      {action === ACTION_CONFIRM && (
+        <form onSubmit={onSubmit}>
+          <Input placeholder="Paste your secret" required {...secret} />
+          <Button text={"Confirm"} />
+        </form>
       )}
-    </StateChanger>
+    </Form>
+    {action !== ACTION_CONFIRM && (
+      <StateChanger>
+        {action === ACTION_LOGIN ? (
+          <>
+            Don 't have an account?
+            <Link onClick={() => setAction(ACTION_SIGNUP)}> Sign up </Link>
+          </>
+        ) : (
+          <>
+            Have an account ?
+            <Link onClick={() => setAction(ACTION_LOGIN)}> Log in </Link>
+          </>
+        )}
+      </StateChanger>
+    )}
   </Wrapper>
 );
