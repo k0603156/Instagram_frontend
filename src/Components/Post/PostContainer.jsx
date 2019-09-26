@@ -21,26 +21,31 @@ const PostContainer = ({
   const [isLikedState, setIsLiked] = useState(isLiked);
   const [likeCountState, setLikeCount] = useState(likeCount);
   const [currentItem, setCurrentItem] = useState(0);
+  const [selfComments, setSelfComments] = useState([]);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     variables: { postId: id }
   });
   const [cooledDown, setCooledDown] = useCooldown(1500);
   const newComment = useInput("");
 
-  const addComment = useMutation(ADD_COMMENT, {
+  const [addCommentMutation] = useMutation(ADD_COMMENT, {
     variables: {
       postId: id,
-      text: comments.value
+      text: newComment.value
     }
   });
 
   const slide = React.useCallback(() => {
+    let slideTimeOut;
     const totalFiles = files.length;
     if (currentItem === totalFiles - 1) {
-      setTimeout(() => setCurrentItem(0), 2000);
+      slideTimeOut = setTimeout(() => setCurrentItem(0), 2000);
     } else {
-      setTimeout(() => setCurrentItem(currentItem + 1), 2000);
+      slideTimeOut = setTimeout(() => setCurrentItem(currentItem + 1), 2000);
     }
+    return () => {
+      clearTimeout(slideTimeOut);
+    };
   }, [currentItem, files.length]);
 
   const toggleLike = async () => {
@@ -65,9 +70,24 @@ const PostContainer = ({
     }
   };
   useEffect(() => {
-    slide();
-  }, [currentItem, slide]);
+    return slide();
+  });
 
+  const onKeyPress = async event => {
+    const { which } = event;
+    if (which === 13) {
+      event.preventDefault();
+      try {
+        const {
+          data: { addComment }
+        } = await addCommentMutation();
+        setSelfComments([...selfComments, addComment]);
+        newComment.setValue("");
+      } catch {
+        toast.error("Can't send comment");
+      }
+    }
+  };
   return (
     <PostPresenter
       user={user}
@@ -83,6 +103,8 @@ const PostContainer = ({
       setLikeCount={setLikeCount}
       currentItem={currentItem}
       toggleLike={toggleLike}
+      onKeyPress={onKeyPress}
+      selfComments={selfComments}
     />
   );
 };

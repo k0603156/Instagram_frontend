@@ -3,7 +3,11 @@ import styled from "styled-components";
 import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
-import { HeartFull, HeartEmpty, Comment } from "../Icons";
+import {
+  HeartFull as HeartFullIco,
+  HeartEmpty as HeartEmptyIco,
+  Comment as CommentIco
+} from "../Icons";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -87,6 +91,16 @@ const Textarea = styled(TextareaAutosize)`
     outline: none;
   }
 `;
+const Comments = styled.ul`
+  margin-top: 10px;
+`;
+
+const Comment = styled.li`
+  margin-bottom: 7px;
+  span {
+    margin-right: 5px;
+  }
+`;
 export default ({
   user: { userName, avatar },
   location,
@@ -94,13 +108,15 @@ export default ({
   files,
   likeCount,
   isLiked,
-  comments,
   createdAt,
+  comments,
   newComment,
-  setIsLiked,
+  selfComments,
   setLikeCount,
+  setIsLiked,
   currentItem,
-  toggleLike
+  toggleLike,
+  onKeyPress
 }) => (
   <Post>
     <Header>
@@ -125,16 +141,41 @@ export default ({
     <Meta>
       <Buttons>
         <Button onClick={toggleLike}>
-          {isLiked ? <HeartFull /> : <HeartEmpty />}
+          {isLiked ? <HeartFullIco /> : <HeartEmptyIco />}
         </Button>
         <Button>
-          <Comment />
+          <CommentIco />
         </Button>
       </Buttons>
 
       <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
+      {comments && (
+        <Comments>
+          {comments.map(comment => (
+            <Comment key={comment.id}>
+              <FatText text={comment.user.userName}></FatText>
+              {comment.text}
+            </Comment>
+          ))}
+        </Comments>
+      )}
+      {selfComments && (
+        <Comments>
+          {selfComments.map(comment => (
+            <Comment key={comment.id}>
+              <FatText text={comment.user.userName}></FatText>
+              {comment.text}
+            </Comment>
+          ))}
+        </Comments>
+      )}
       <Timestamp>{createdAt}</Timestamp>
-      <Textarea placeholder={"Add a Comment..."} {...newComment} />
+      <Textarea
+        onKeyPress={onKeyPress}
+        placeholder={"Add a Comment..."}
+        value={newComment.value}
+        onChange={newComment.onChange}
+      />
     </Meta>
   </Post>
 );
