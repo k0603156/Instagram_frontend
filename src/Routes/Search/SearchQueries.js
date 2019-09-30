@@ -6,6 +6,7 @@ export const SEARCH = gql `
   query search($term: String!) {
     searchPost(term: $term) {
       id
+      caption
       files {
         url
       }
