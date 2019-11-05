@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useCooldown } from "use-cooldown";
 import { useMutation } from "react-apollo-hooks";
 import { toast } from "react-toastify";
@@ -35,7 +35,7 @@ const PostContainer = ({
     }
   });
 
-  const slide = React.useCallback(() => {
+  const slide = useCallback(() => {
     let slideTimeOut;
     const totalFiles = files.length;
     if (currentItem === totalFiles - 1) {

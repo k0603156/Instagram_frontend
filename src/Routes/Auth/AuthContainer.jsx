@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import AuthPresenter from "./AuthPresenter";
 import useInput from "../../Hooks/useInput";
 import { useMutation } from "react-apollo-hooks";
@@ -10,6 +10,7 @@ import {
 } from "./AuthQueries";
 import { toast } from "react-toastify";
 import { ACTION_CONFIRM, ACTION_SIGNUP, ACTION_LOGIN } from "./AuthAction";
+import { TOAST_ERROR, TOAST_SUCESS } from "./AuthAction";
 
 export default () => {
   const [action, setAction] = useState(ACTION_LOGIN);
@@ -38,6 +39,11 @@ export default () => {
   });
   const [localLogiInMutation] = useMutation(LOCAL_LOG_IN);
 
+  const actionWithToast = useCallback((type, message, callback) => {
+    toast[type](message);
+    if (callback) callback();
+    return () => {};
+  }, []);
   const onSubmit = async e => {
     e.preventDefault();
     if (action === ACTION_LOGIN) {
@@ -48,19 +54,27 @@ export default () => {
           } = await requestSecretMutation();
           console.log(requestSecret);
           if (!requestSecret) {
-            toast.error("You don't have an account yet. create one");
-            setTimeout(() => {
-              setAction(ACTION_SIGNUP);
-            }, 3000);
+            actionWithToast(
+              "error",
+              "You don't have an account yet. create one",
+              () => {
+                setTimeout(() => {
+                  setAction(ACTION_SIGNUP);
+                }, 3000);
+              }
+            );
           } else {
-            toast.success("Check your inbox for your login secret");
-            setAction(ACTION_CONFIRM);
+            actionWithToast(
+              "success",
+              "Check your inbox for your login secret",
+              () => setAction(ACTION_CONFIRM)
+            );
           }
         } catch {
-          toast.error("Cant' request secret, try again");
+          actionWithToast("error", "Cant' request secret, try again");
         }
       } else {
-        toast.error("Email is required");
+        actionWithToast("error", "Email is required");
       }
     } else if (action === ACTION_SIGNUP) {
       if (

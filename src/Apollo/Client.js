@@ -1,8 +1,5 @@
 import ApolloClient from "apollo-boost";
-import {
-  defaults,
-  resolvers
-} from "./LocalState";
+import { defaults, resolvers } from "./LocalState";
 
 export default new ApolloClient({
   uri: "http://localhost:8001",
@@ -10,7 +7,18 @@ export default new ApolloClient({
     defaults,
     resolvers
   },
-  headers: {
-    "Authorization": `Bearer ${localStorage.getItem("token")}`
+  request: async operation => {
+    const token = await localStorage.getItem("token");
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ""
+      }
+    });
+  },
+  onError: ({ graphQLErrors, networkError, response, operation, forward }) => {
+    if (graphQLErrors) {
+    }
+    if (networkError) {
+    }
   }
-})
+});

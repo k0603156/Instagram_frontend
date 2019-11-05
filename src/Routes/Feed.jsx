@@ -42,8 +42,7 @@ const Wrapper = styled.div`
   min-height: 80vh;
 `;
 export default () => {
-  const { data, loading } = useQuery(FEED_QUERY);
-
+  const { data, error, loading } = useQuery(FEED_QUERY);
   return (
     <Wrapper>
       <Helmet>

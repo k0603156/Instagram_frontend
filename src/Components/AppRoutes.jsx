@@ -1,5 +1,5 @@
 import React from "react";
-import PropTyles from "prop-types";
+import PropTypes from "prop-types";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Feed from "../Routes/Feed";
 import Auth from "../Routes/Auth";
@@ -25,7 +25,7 @@ const LoggedOutRoutes = () => (
 const AppRouter = ({ isLoggedIn }) =>
   isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />;
 AppRouter.prototypes = {
-  isLoggedIn: PropTyles.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 export default AppRouter;

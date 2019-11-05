@@ -9,14 +9,19 @@ import Theme from "../Styles/Theme";
 import AppRoutes from "./AppRoutes";
 import Header from "./Header";
 import Footer from "./Footer";
-import { QUERY } from "./AppQuery";
+// import { QUERY } from "./AppQuery";
+import { gql } from "apollo-boost";
 
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: ${props => props.theme.maxWidth};
   width: 100%;
 `;
-
+const QUERY = gql`
+  {
+    isLoggedIn @client
+  }
+`;
 export default () => {
   const {
     data: { isLoggedIn }

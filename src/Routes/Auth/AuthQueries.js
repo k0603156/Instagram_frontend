@@ -1,43 +1,35 @@
-import {
-  gql
-} from "apollo-boost";
+import { gql } from "apollo-boost";
 
-export const LOG_IN = gql `
+export const LOG_IN = gql`
   mutation requestSecret($email: String!) {
     requestSecret(email: $email)
   }
 `;
 
-export const CREATE_ACCOUNT = gql `
+export const CREATE_ACCOUNT = gql`
   mutation createAccount(
-    $email:String!
+    $email: String!
     $userName: String!
-    $firstName:String!
-    $lastName:String!
+    $firstName: String!
+    $lastName: String!
   ) {
     createAccount(
-      email:    $email
+      email: $email
       userName: $userName
-      firstName:$firstName
+      firstName: $firstName
       lastName: $lastName
     )
   }
 `;
 
-export const CONFIRM_SECRET = gql `
-  mutation confirmSecret(
-    $secret:String!,
-    $email:String!
-  ) {
-    confirmSecret(
-      secret:$secret,
-      email:$email
-    )
+export const CONFIRM_SECRET = gql`
+  mutation confirmSecret($secret: String!, $email: String!) {
+    confirmSecret(secret: $secret, email: $email)
   }
 `;
 
-export const LOCAL_LOG_IN = gql `
-  mutation logUserIn($token: String!){
+export const LOCAL_LOG_IN = gql`
+  mutation logUserIn($token: String!) {
     logUserIn(token: $token) @client
   }
 `;
