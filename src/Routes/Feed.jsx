@@ -46,7 +46,7 @@ export default () => {
   return (
     <Wrapper>
       <Helmet>
-        <title>Feed | Prismagram</title>
+        <title>Feed | Instagram</title>
       </Helmet>
       {loading && <Loader size={36} />}
       {!loading &&

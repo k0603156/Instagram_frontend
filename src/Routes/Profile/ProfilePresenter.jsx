@@ -86,7 +86,7 @@ export default ({ loading, logOut, data }) => {
     return (
       <Wrapper>
         <Helmet>
-          <title>{userName} | Prismagram</title>
+          <title>{userName} | Instagram</title>
         </Helmet>
         <Header>
           <HeaderColumn>

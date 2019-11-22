@@ -64,7 +64,7 @@ export default ({
       {action === ACTION_LOGIN && (
         <>
           <Helmet>
-            <title>Log In | Prismagram</title>
+            <title>Log In | Instagram</title>
           </Helmet>
           <form onSubmit={onSubmit}>
             <Input
