@@ -1,3 +1,11 @@
-# InstagramClone Frontend
+#### ProjectName
 
-Instagram clone with React graphql apollo
+`InstagramClone Frontend`
+
+#### Definition
+
+`Instagram clone Frontend`
+
+#### Stack
+
+`React` `graphql` `apollo` `graphql` `styled-components`
