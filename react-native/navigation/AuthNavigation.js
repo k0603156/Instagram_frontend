@@ -9,7 +9,7 @@ import Confirm from "../screens/Auth/Confirm";
 
 const AuthNavigation = createStackNavigator();
 
-const NavigatorOptions = {
+const NavigationOptions = {
   gestureEnabled: true,
   gestureDirection: "horizontal-inverted",
 };
@@ -19,7 +19,7 @@ export default () => (
     <AuthNavigation.Navigator
       initialRouteName="AuthHome"
       headerMode="none"
-      screenOptions={NavigatorOptions}
+      screenOptions={NavigationOptions}
     >
       <AuthNavigation.Screen name="AuthHome" component={AuthHome} />
       <AuthNavigation.Screen name="Signup" component={Signup} />
