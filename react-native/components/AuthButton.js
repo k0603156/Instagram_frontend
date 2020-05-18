@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import constants from "../constants";
 
 const Touchable = styled.TouchableOpacity``;
@@ -23,8 +23,8 @@ const AuthButton = ({ text, onPress }) => (
     </Container>
   </Touchable>
 );
-AuthButton.PropTypes = {
-  text: propTypes.string.isRequired,
-  onPress: propTypes.func.isRequired,
+AuthButton.propTypes = {
+  text: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 export default AuthButton;

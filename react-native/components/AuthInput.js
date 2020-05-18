@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import constants from "../constants";
 
 const Container = styled.View`
@@ -16,26 +16,34 @@ const TextInput = styled.TextInput`
 
 const AuthInput = ({
   placeholder,
-  value,
-  keyboardType = "default",
   autoCapitalize = "none",
+  autoCorrect = true,
+  returnKeyType = "done",
+  keyboardType = "default",
+  onEndEditing = () => null,
   onChange,
+  value,
 }) => (
   <Container>
     <TextInput
-      onChangeText={onChange}
-      autoCapitalize={autoCapitalize}
-      keyboardType={keyboardType}
       placeholder={placeholder}
+      autoCapitalize={autoCapitalize}
+      autoCorrect={autoCorrect}
+      returnKeyType={returnKeyType}
+      keyboardType={keyboardType}
+      onChangeText={onChange}
+      onEndEditing={onEndEditing}
       value={value}
     />
   </Container>
 );
 
-AuthInput.PropTypes = {
-  placeholder: propTypes.string.isRequired,
-  value: propTypes.string.isRequired,
-  keyboardType: propTypes.oneOf([
+AuthInput.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  autoCapitalize: PropTypes.oneOf(["none", "sentences", "words", "characters"]),
+  autoCorrect: PropTypes.bool,
+  returnKeyType: PropTypes.oneOf(["done", "go", "next", "search", "send"]),
+  keyboardType: PropTypes.oneOf([
     "default",
     "number-pad",
     "decimal-pad",
@@ -43,7 +51,8 @@ AuthInput.PropTypes = {
     "email-address",
     "phone-pad",
   ]),
-  autoCapitalize: propTypes.oneOf(["none", "sentences", "words", "characters"]),
-  onChange: propTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onEndEditing: PropTypes.func,
+  value: PropTypes.string.isRequired,
 };
 export default AuthInput;
