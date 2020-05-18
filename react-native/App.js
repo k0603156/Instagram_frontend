@@ -10,9 +10,9 @@ import ApolloClient from "apollo-boost";
 import { ThemeProvider } from "styled-components";
 import { ApolloProvider } from "react-apollo-hooks";
 import apolloClientOptions from "./apollo";
-import styles from "./styles";
 import NavController from "./components/NavController";
 import { AuthProvider } from "./AuthContext";
+import styles from "./styles";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -23,7 +23,7 @@ export default function App() {
       await Font.loadAsync({
         ...Ionicons.font,
       });
-      await Asset.loadAsync([require("./assets/logo.png")]);
+      await Asset.loadAsync([require("./assets/logo.jpg")]);
       const cache = new InMemoryCache();
       await persistCache({
         cache,
