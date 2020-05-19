@@ -1,2 +1,2 @@
-const apolloClientOptions = { uri: "http//localhost:8001/graphql" };
+const apolloClientOptions = { uri: "https://1d770d2b.ngrok.io" };
 export default apolloClientOptions;
