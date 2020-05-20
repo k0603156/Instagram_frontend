@@ -1,2 +1,2 @@
-const apolloClientOptions = { uri: "https://1d770d2b.ngrok.io" };
+const apolloClientOptions = { uri: "http://192.168.0.4:8001" };
 export default apolloClientOptions;

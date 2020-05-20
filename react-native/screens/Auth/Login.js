@@ -40,8 +40,11 @@ export default function Login({ navigation }) {
       } = await requestSecretMutation();
       if (requestSecret) {
         Alert.alert("Check your email");
-        navigation.navigate("Confirm");
+        navigation.navigate("Confirm", { email: value });
         return;
+      } else {
+        Alert.alert("Account not found");
+        navigation.navigate("Signup", { email: value });
       }
     } catch (error) {
       console.log(error);
