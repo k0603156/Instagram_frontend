@@ -14,19 +14,14 @@ const View = styled.View`
   flex: 1;
 `;
 
-export default function Login({
-  navigation,
-  route: {
-    params: { email },
-  },
-}) {
+export default function Login({ navigation, route: { params } }) {
   const confirmInput = useInput("");
   const logIn = useLogIn();
   const [loading, setLoding] = useState(false);
   const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
     variables: {
       secret: confirmInput.value,
-      email,
+      email: params?.email,
     },
   });
   const handleConfirm = async () => {

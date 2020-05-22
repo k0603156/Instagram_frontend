@@ -14,9 +14,9 @@ const View = styled.View`
 `;
 const Text = styled.Text``;
 
-export default function Login({ navigation }) {
-  const emailInput = useInput("");
-  const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+export default function Login({ navigation, route: { params } }) {
+  const emailInput = useInput(params?.email || "");
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [loading, setLoding] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: {
